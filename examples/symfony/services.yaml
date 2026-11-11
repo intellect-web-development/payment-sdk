@@ -1,0 +1,9 @@
+# Фрагмент config/services.yaml продукта после opt-in Payment.
+# Полный чеклист: sibling payment/INTEGRATION.md
+
+services:
+    IWD\PaymentSdk\PaymentClient:
+        arguments:
+            $httpClient: '@http_client'
+            $baseUrl: '%env(PAYMENT_BASE_URL)%'
+            $token: '%env(PLATFORM_SERVICE_TOKEN)%'

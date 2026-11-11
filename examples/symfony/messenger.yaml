@@ -1,0 +1,26 @@
+# Фрагмент Resource/config/services/messenger.yaml продукта.
+# Приём адресных событий Payment: очередь `{slug}.payment` объявляет продукт и привязывает её к exchange `payment.events`
+# только со своим кодом (binding key = APP_SLUG). Чужие события в неё не попадают.
+# Замените `my-product` на APP_SLUG продукта. Payment команд от продукта не принимает, поэтому транспорта для отправки нет.
+
+framework:
+    messenger:
+        transports:
+            payment-events-in:
+                dsn: '%env(PLATFORM_MESSENGER_TRANSPORT_DSN)%'
+                retry_strategy:
+                    max_retries: 3
+                    delay: 5000
+                    multiplier: 3
+                options:
+                    exchange:
+                        name: payment.events
+                        type: direct
+                    queues:
+                        my-product.payment:
+                            binding_keys: ['my-product']
+        routing: { }
+
+# Классы сообщений (IWD\PaymentSdk\Message\Event\*) лежат в vendor и автоконфигурацию не проходят:
+# локальные копии с #[AsMessage(serializedTypeName: 'payment.event.…')] лежат в src/Common/Messages/Payment/Event/ продукта,
+# обработчики (#[AsMessageHandler]) — в Entry/MessageBus/Async/.
