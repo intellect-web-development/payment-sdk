@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Common\Payment;
+namespace IWD\PaymentSdk\Examples\Symfony;
 
 use DateTimeImmutable;
 use IWD\PaymentSdk\Payment;
@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * Пример адаптера продукта: единственная точка связи с Payment.
- * Скопировать в продукт при opt-in; домен PaymentClient не импортирует.
+ * В продукте копируйте в App\Common\Payment (или свой BC) при opt-in; домен PaymentClient не импортирует.
  *
  * Любая ошибка сервиса превращается в PaymentUnavailableHttpException (в продукте — 502): платёж не создаётся, деньги не теряются.
  */
