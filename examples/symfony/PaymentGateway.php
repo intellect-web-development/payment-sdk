@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * Пример адаптера продукта: единственная точка связи с Payment.
- * В продукте копируйте в App\Common\Payment (или свой BC) при opt-in; домен PaymentClient не импортирует.
+ * В продукте копируйте в App\PlatformProjection\Payment (или свой BC) при opt-in; домен PaymentClient не импортирует.
  *
  * Любая ошибка сервиса превращается в PaymentUnavailableHttpException (в продукте — 502): платёж не создаётся, деньги не теряются.
  */
